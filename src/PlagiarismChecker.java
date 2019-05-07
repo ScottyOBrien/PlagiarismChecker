@@ -7,13 +7,58 @@
  *
  * KNOWN BUGS: IDE says there are errors but it is in the test programs.
  */
+
+import java.io.*;
+import java.util.Scanner;
+
 public class PlagiarismChecker {
 
     public static void main(String[] args) {
 
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome to PlagiarismChecker - Please enter the names of the files you want to compare." +
+                "\n(include the file extension, i.e. \"player1.java\")");
+
+        // get the first file name.
+        //System.out.print("First Filename: ");
+        //String file1 = input.nextLine();
+        String file1 = ("Player1.txt");
+        // get second file name.
+        //System.out.print("Second Filename: ");
+        String file2 = ("Player2.txt");
+        //String file2 = input.nextLine();
+
+        //print file names.
+        System.out.println("Filenames entered: " + file1 + ", " + file2);
+
+        System.out.println("Read Line Test: ");
+
+        plagiarismScore(file1, file2);
     }
 
-    public double plagiarismScore(String filename1, String filename2) {
+    public static double plagiarismScore(String filename1, String filename2) {
+        String recordOne = null;
+        String recordTwo = null;
+
+        try {
+            RandomAccessFile fileOne = new RandomAccessFile(filename1, "rw");
+            RandomAccessFile fileTwo = new RandomAccessFile(filename2, "rw");
+
+            fileOne.seek(5);
+            fileTwo.seek(5);
+
+            recordOne = fileOne.readLine();
+            recordTwo = fileTwo.readLine();
+
+            fileOne.close();
+            fileTwo.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(recordOne);
+        System.out.println(recordTwo);
 
         return 0.0;
     }
