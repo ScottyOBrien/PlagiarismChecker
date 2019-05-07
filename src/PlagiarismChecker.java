@@ -41,15 +41,19 @@ public class PlagiarismChecker {
         String recordTwo = null;
 
         try {
+            // create random access files.
             RandomAccessFile fileOne = new RandomAccessFile(filename1, "rw");
             RandomAccessFile fileTwo = new RandomAccessFile(filename2, "rw");
 
+            // get byte position in file.
             fileOne.seek(5);
             fileTwo.seek(5);
 
+            // store what is at that position in these variables
             recordOne = fileOne.readLine();
             recordTwo = fileTwo.readLine();
 
+            //close the files
             fileOne.close();
             fileTwo.close();
 
@@ -57,6 +61,7 @@ public class PlagiarismChecker {
             e.printStackTrace();
         }
 
+        //print what is at that position
         System.out.println(recordOne);
         System.out.println(recordTwo);
 
