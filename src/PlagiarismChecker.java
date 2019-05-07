@@ -5,7 +5,7 @@
  * PlagiarismChecker is a programm that compares two given programs and compares the code to see how similar they are.
  * It compares subsequences and keeps track of the longest subsequence and gives the two programs a "plagerism score".
  *
- * KNOWN BUGS:
+ * KNOWN BUGS: IDE says there are errors but it is in the test programs.
  */
 public class PlagiarismChecker {
 
