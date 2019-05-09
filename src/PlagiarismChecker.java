@@ -37,15 +37,15 @@ public class PlagiarismChecker {
         System.out.println("Welcome to PlagiarismChecker - Please enter the names of the files you want to compare." +
                 "\n(include the file extension, i.e. \"player1.java\")");
 
-// get the first file name.
-//        System.out.print("First Filename: ");
-//        String file1 = input.nextLine();
-        String file1 = ("Player1.txt");
+        // get the first file name.
+        System.out.print("First Filename: ");
+        String file1 = input.nextLine();
+//        String file1 = ("Player1.txt");
 
-// get second file name.
-//        System.out.print("Second Filename: ");
-//        String file2 = input.nextLine();
-        String file2 = ("Player2.txt");
+        // get second file name.
+        System.out.print("Second Filename: ");
+        String file2 = input.nextLine();
+//        String file2 = ("Player2.txt");
 
         System.out.print("Please enter the threshold: ");
         double thresh = Double.parseDouble(input.nextLine());
@@ -59,10 +59,6 @@ public class PlagiarismChecker {
         PlagiarismChecker p = new PlagiarismChecker();
         System.out.println("Plagiarism score: " + plagiarismScore(file1, file2, p));
         p.plagiarismChecker(thresh);
-
-
-        // Test printing.
-        //System.out.println("The LCS of " + file1 + " and " + file2 + " is: " + p.lcsLength(recordOne, recordTwo));
 
     }
 
@@ -108,9 +104,9 @@ public class PlagiarismChecker {
 
         // set this PlagiarismChecker's filename pair
         pc.setFileNamePair(filename1 + " & " + filename2);
-        //System.out.println("The LCS of " + filename1 + " and " + filename2 + " is: " + pc.lcsLength(recordOne, recordTwo));
+
+        //set the plagiarism score
         pc.setPlagiarismScore(200 * pc.lcsLength(recordOne,recordTwo) / ((double) recordOne.length() + (double) recordTwo.length()));
-        //System.out.println("Pair: " + pc.fileNamePair);
         return pc.plagiarismScore;
     }
 
@@ -148,7 +144,7 @@ public class PlagiarismChecker {
         int lengthOfP2 = programTwo.length;
 
         // create a new 2D array the size of both programs to be compared.
-        int X[][] = new int[lengthOfP1+1][lengthOfP2+1];
+        int[][] X = new int[lengthOfP1 + 1][lengthOfP2 + 1];
 
         // find the lcs of the two programs.
         for (int i=0; i<=lengthOfP1; i++) {
