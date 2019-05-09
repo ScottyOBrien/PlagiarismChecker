@@ -9,10 +9,14 @@
  */
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PlagiarismChecker {
 
+    public static ArrayList<PlagiarismChecker> programs = new ArrayList<PlagiarismChecker>();
+
+    // create our private class variables that will be used when working with PlagiarismChecker objects.
     private String fileNamePair;
     private double plagiarismScore = 0.0;
     private boolean isPlagiarising = false;
@@ -38,27 +42,42 @@ public class PlagiarismChecker {
                 "\n(include the file extension, i.e. \"player1.java\")");
 
         // get the first file name.
-        System.out.print("First Filename: ");
-        String file1 = input.nextLine();
-//        String file1 = ("Player1.txt");
-
-        // get second file name.
-        System.out.print("Second Filename: ");
-        String file2 = input.nextLine();
-//        String file2 = ("Player2.txt");
+//        System.out.print("First Filename: ");
+//        String file1 = input.nextLine();
+        String file1 = ("Player1.txt");
+        String file2 = ("Player2.txt");
+        String file3 = ("Player1.txt");
+        String file4 = ("Player2.txt");
 
         System.out.print("Please enter the threshold: ");
         double thresh = Double.parseDouble(input.nextLine());
-        //System.out.println();
 
-        //print file names.
-        System.out.println("Filenames entered: " + file1 + ", " + file2);
-        System.out.println("-------------------------------------------------");
+        String [] fileNameList = new String[] {file1, file2, file3, file4};
+        System.out.println(fileNameList.length);
+
+        for (int i = 0; i <=fileNameList.length ; i++) {
+            if (i == fileNameList.length) {
+                PlagiarismChecker p = new PlagiarismChecker();
+                plagiarismScore(fileNameList[i], fileNameList[0], p);
+            }
+            else {
+                PlagiarismChecker p = new PlagiarismChecker();
+                plagiarismScore(fileNameList[i], fileNameList[i + 1], p);
+            }
+        }
+
+        plagiarismChecker(thresh);
+
+        // get second file name.
+//        System.out.print("Second Filename: ");
+//        String file2 = input.nextLine();
 
         // initialize an object to store data in and call methods on.
-        PlagiarismChecker p = new PlagiarismChecker();
-        System.out.println("Plagiarism score: " + plagiarismScore(file1, file2, p));
-        p.plagiarismChecker(thresh);
+        //PlagiarismChecker p = new PlagiarismChecker();
+       // System.out.println("Plagiarism score: " + plagiarismScore(file1, file2, p));
+        // call plagiarism score, and call plagiarism checker on it.
+        //plagiarismScore(file1, file2, p);
+       // p.plagiarismChecker(thresh);
 
     }
 
@@ -103,10 +122,12 @@ public class PlagiarismChecker {
         }
 
         // set this PlagiarismChecker's filename pair
-        pc.setFileNamePair(filename1 + " & " + filename2);
+        pc.setFileNamePair(filename1 + "            " + filename2);
 
         //set the plagiarism score
         pc.setPlagiarismScore(200 * pc.lcsLength(recordOne,recordTwo) / ((double) recordOne.length() + (double) recordTwo.length()));
+        // add new plagiarism checker object to the arrayList
+        programs.add(pc);
         return pc.plagiarismScore;
     }
 
@@ -115,15 +136,29 @@ public class PlagiarismChecker {
      * If it does, sets boolean value.
      * @param threshold
      */
-    private void plagiarismChecker(double threshold) {
+    private static void plagiarismChecker(double threshold) {
 
-        if (this.plagiarismScore > threshold) {
-            System.out.println("This pair exceeds the given threshold! You are plagiarising SCUM");
-            this.setPlagiarising(true);
+        // create and print the header
+        String header = "File 1                 File 2              Score                   THRESHOLD: " + threshold;
+        System.out.println(header);
+
+        for (int i = 0; i < programs.size() ; i++) {
+            // if the pair is suspicious, that is, their score exceeds the threshold.
+            if (programs.get(i).plagiarismScore > threshold) {
+                programs.get(i).setPlagiarising(true); // set the ispPlagiarising boolean to true.
+                //print the suspicious pair
+                System.out.println(programs.get(i).fileNamePair + "         " + programs.get(i).plagiarismScore);
+            }
+
         }
-        else {
-            System.out.println("This score does not exceed the threshold! :)");
-        }
+
+//        if (this.plagiarismScore > threshold) {
+//            System.out.println("This pair exceeds the given threshold! You are plagiarising SCUM");
+//            this.setPlagiarising(true);
+//        }
+//        else {
+//            System.out.println("This score does not exceed the threshold! :)");
+//        }
     }
 
     /**
