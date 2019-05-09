@@ -55,8 +55,8 @@ public class PlagiarismChecker {
         String [] fileNameList = new String[] {file1, file2, file3, file4};
         System.out.println(fileNameList.length);
 
-        for (int i = 0; i <=fileNameList.length ; i++) {
-            if (i == fileNameList.length) {
+        for (int i = 0; i <=fileNameList.length-1 ; i++) {
+            if (i == fileNameList.length-1) {
                 PlagiarismChecker p = new PlagiarismChecker();
                 plagiarismScore(fileNameList[i], fileNameList[0], p);
             }
@@ -134,7 +134,7 @@ public class PlagiarismChecker {
     /**
      * Checks if a PlagiarismChecker object has a plagiarismScore exceeding the threshold provided by user.
      * If it does, sets boolean value.
-     * @param threshold
+     * @param threshold - threshold value passed, defined by user input
      */
     private static void plagiarismChecker(double threshold) {
 
